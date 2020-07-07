@@ -26,18 +26,19 @@ const itemService = {
       return;
     }
 
-    if (parseFloat(req.body.price) < 0 || !Number.isInteger(parseFloat(req.body.price))) {
+    if (
+      parseFloat(req.body.price) < 0 ||
+      !Number.isInteger(parseFloat(req.body.price))
+    ) {
       res
         .status(406)
         .send({ status: "Price must be a round positive number!" });
       return;
     }
 
-    const regExForUrl = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
-    if(!req.body.photoUrl.match(regExForUrl)){
-      res
-        .status(406)
-        .send({ status: "Photo url must be a valid url!" });
+    const regExForUrl = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
+    if (!req.body.photoUrl.match(regExForUrl)) {
+      res.status(406).send({ status: "Photo url must be a valid url!" });
       return;
     }
 
@@ -54,6 +55,18 @@ const itemService = {
         res.status(500).send({ status: "Can't create item" });
       });
   },
+  findItemById(req, res) {
+    db.Item.findAll({ where: { id: req.params.id } }).then((result) => {
+      if(result.length === 0){
+        res.send({status: "No such item"});
+        return;
+      }
+      res.send({ result });
+    });
+  },
+  findNotSoldItems(req, res){
+    db.Item.findAll({where: {sellable: true}}).then((result) => {res.send({result})})
+  }
 };
 
 module.exports = itemService;
