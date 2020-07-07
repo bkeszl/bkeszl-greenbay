@@ -2,15 +2,15 @@ const express = require("express");
 const app =  express();
 const db = require('./models');
 const PORT = process.env.PORT || 3000;
+const itemRoutes = require('./routes/itemRoutes');
 require('dotenv').config();
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-const apiRoutes = require('./routes/apiRoutes');
-app.use('/api', apiRoutes);
+app.use('/item', itemRoutes);
 
-db.sequelize.sync().then(() => {
+db.sequelize.sync({force: true}).then(() => {
   app.listen(PORT, ()=>{
     console.log(`listening on: http://localhost:${PORT}`)
   });
