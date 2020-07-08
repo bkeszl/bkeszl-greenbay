@@ -15,7 +15,7 @@ app.use(checkToken);
 app.use('/user', userRoutes);
 app.use('/item', itemRoutes);
 
-db.sequelize.sync({force: true}).then(() => {
+db.sequelize.sync().then(() => {
   app.listen(PORT, ()=>{
     console.log(`listening on: http://localhost:${PORT}`)
   });

@@ -7,5 +7,6 @@ router.get('/all', itemService.findAllItems);
 router.post('/new', itemService.newItem);
 router.get('/find/:id', itemService.findItemById);
 router.get('/notsold', itemService.findNotSoldItems);
+router.put('/buy/:id', itemService.sellItem);
 
 module.exports = router;

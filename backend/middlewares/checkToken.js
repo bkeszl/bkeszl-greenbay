@@ -13,7 +13,7 @@ const checkToken = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (err) {
-    res.status(403).json({ message: err.message });
+    res.status(403).json({ status: err.message });
   }
 };
 

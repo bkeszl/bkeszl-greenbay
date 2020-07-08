@@ -1,4 +1,5 @@
 const db = require("../models");
+const userService = require("./userService");
 
 const itemService = {
   findAllItems(req, res) {
@@ -57,16 +58,46 @@ const itemService = {
   },
   findItemById(req, res) {
     db.Item.findAll({ where: { id: req.params.id } }).then((result) => {
-      if(result.length === 0){
-        res.send({status: "No such item"});
+      if (result.length === 0) {
+        res.send({ status: "No such item" });
         return;
       }
       res.send({ result });
     });
   },
-  findNotSoldItems(req, res){
-    db.Item.findAll({where: {sellable: true}}).then((result) => {res.send({result})})
-  }
+  findNotSoldItems(req, res) {
+    db.Item.findAll({ where: { sellable: true } }).then((result) => {
+      res.send({ result });
+    });
+  },
+  async sellItem(req, res, next) {
+    let userCurrency = await userService.getUserCurrencyAmount(req.user.user.id);
+    console.log(req.user);
+    
+    db.Item.findByPk(req.params.id)
+      .then((result) => {
+        if(result === null) {
+          res.send({status: "No such item"})
+          return;
+        }
+        
+        if(result.price > userCurrency) {
+          res.send({status: "Not enough currency"});
+          return;
+        }
+        userService.substractPriceFromUserCurrency(req.user.user.id ,result.price)
+        if (result.sellable) {          
+          result
+          .update({ sellable: false, buyerName: req.user.user.username })
+          .then((result) => {
+            res.send({ result });
+          })
+        } else {
+          res.send({status: "Item already sold"});
+        }
+      })
+      
+  },
 };
 
 module.exports = itemService;

@@ -1,6 +1,7 @@
 const db = require("../models");
 const encryptService = require("./encryptService");
 const tokenService = require("./tokenService");
+const { where } = require("sequelize");
 
 const userService = {
   async registerUser(req, res) {
@@ -15,7 +16,7 @@ const userService = {
     db.User.create({
       userName: req.body.username,
       password: await encryptService.encryptPassword(req.body.password),
-      currency: 0,
+      currency: 100,
     })
       .then(() => {
         res.send({ message: "User succesfully created" });
@@ -49,6 +50,15 @@ const userService = {
     } else {
       res.status(401).json({ message: "Login failed: wrong pass" });
     }
+  },
+  async getUserCurrencyAmount(userId){
+    let currency = await db.User.findOne({where: {id: userId}}).then((result) => {
+      return result.currency;
+    });
+    return currency;
+  },
+  substractPriceFromUserCurrency(userId, price) {
+    db.User.decrement('currency', {by: price, where: {id: userId}});
   },
 };
 
