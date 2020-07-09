@@ -1,0 +1,14 @@
+{
+  "item":{
+    "teaserImage": "something"
+  },
+  "gallery":{
+    "name": "galleryName",
+    "images": [
+      {
+        "uid": "12345",
+        "crop": "Image version to get?"
+      }
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+body{
+  font-family: 'Open Sans', sans-serif;
+}
+
+.img-thumbnail {
+  clip: rect(0px,25px,50px,25px);
+}
+
+.store-container {
+  display: flex;
+  padding: 5px;
+  background-color: #fffeee;
+  border: 1px solid grey;
+  width: 33em;
+  height: auto;
+}
+
+.item-container {
+  display: flex;
+  width: 16em;
+  height: 9em;
+  align-items: top;
+}
+
+.item-name {
+  margin-bottom: 0.5em;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 1.3em;
+  font-weight: 600;
+}
+
+.item-desc {
+  margin-bottom: 0.5em;
+}
+
+.item-price {
+  font-style: italic;
+  margin-bottom: 0.5em;
+}

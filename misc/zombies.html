@@ -1,0 +1,35 @@
+<div class="glr" data-module="gallery" data-src="Some uri" data-html-src="Some uri">
+  <header class="ttl ttl--section">
+    <h2 class="ttl__headline">galleryName</h2>
+  </header>
+  <div class="glr-images--center">
+    <! {settings.gallery.maxImagesByDefault} the class changes conditionally>
+    <div class="glr-images__image">
+      <div class="glr-image js-gallery-expand">
+        <noscript data-module="lazy-load">
+          <img src="/path/to/img" class="glr-image__img" width="250" height="250">
+        </noscript>>
+        <span class="icn-icon glr-image__expand">
+          <svg class="icn-icon" aria-hidden="true" name="zoom">
+            <! some graphics>
+          </svg>
+        </span>
+      </div>
+    </div>
+    <! if we have more images than {settings.gallery.maxImagesByDefault} >
+    <div class="glr-loadmore">
+      <a class="btn btn--light btn--icon glr-loadmore__button">
+        <span class="btn__inner">
+          <span class="btn__icon">
+            <svg name="plus" aria="hidden">
+              <! some graphics>
+            </svg>
+          </span>
+          <span class="btn__label">
+            Tölts be többet/Load more/Carga más
+          </span>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>

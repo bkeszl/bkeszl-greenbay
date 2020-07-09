@@ -32,7 +32,7 @@ const userService = {
     });
 
     if (checkForUserInDb.length === 0) {
-      return res.status(401).json({ message: "Login failed: no user" });
+      return res.status(401).json({ message: "Login failed: no such user" });
     }
 
     const passwordCheck = await encryptService.comparePasswords(

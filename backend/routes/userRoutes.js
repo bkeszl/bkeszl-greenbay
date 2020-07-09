@@ -4,6 +4,6 @@ const itemService = require('../services/itemService')
 const userService = require('../services/userService')
 
 router.post('/signup', userService.registerUser);
-router.get('/login', userService.loginUser);
+router.post('/login', userService.loginUser);
 
 module.exports = router;
