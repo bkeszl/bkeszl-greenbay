@@ -1,7 +1,7 @@
 import loginService from "../../services/loginService";
 import history from "../../history";
-import itemService from "../../services/itemService";
-import registerService from '../../services/registerService'
+import itemService, {sendItemToDb} from "../../services/itemService";
+import registerService from "../../services/registerService";
 import jwt from "jsonwebtoken";
 
 export const changeInputAction = (event) => ({
@@ -14,11 +14,16 @@ export const changeRegisterInputAction = (event) => ({
   payload: { [event.target.name]: event.target.value, errText: "" },
 });
 
+export const changeNewItemInputAction = (event) => ({
+  type: "CHANGE_NEWITEM_INPUT",
+  payload: { [event.target.name]: event.target.value, errText: "" },
+});
+
 export const loginUserAction = (event) => async (dispatch, getState) => {
   event.preventDefault();
   let state = getState();
   state = state.loginReducer;
-  let login = await loginService(state.username, state.password);  
+  let login = await loginService(state.username, state.password);
   if (login.status === 200) {
     localStorage.setItem("greenbaytoken", login.data.token);
     dispatch({
@@ -45,7 +50,6 @@ export const loginUserAction = (event) => async (dispatch, getState) => {
 };
 export const getSellableItemsAction = () => async (dispatch, getState) => {
   let items = await itemService();
-  console.log(items);
   if (items.status === 200) {
     dispatch({
       type: "LOAD_ITEMS",
@@ -71,18 +75,53 @@ export const setUsernameAction = () => (dispatch) => {
 export const registerUserAction = (event) => async (dispatch, getState) => {
   event.preventDefault();
   let state = getState();
-  let register = await registerService(state.registerReducer.username, state.registerReducer.password);
-
-  console.log(register);
+  let register = await registerService(
+    state.registerReducer.username,
+    state.registerReducer.password
+  );
   if (register.status === 200) {
     history.push("/login");
   } else {
     dispatch({
-      type: 'REGISTER_ERROR',
+      type: "REGISTER_ERROR",
       payload: {
-        payload: { errText: register.message },
+        errText: register.message,
+      },
+    });
+  }
+};
+
+export const logUserOut = () => (dispatch) => {
+  localStorage.removeItem("greenbaytoken");
+  dispatch({
+    type: "LOG_USER_OUT",
+    payload: {
+      username: "GUEST",
+      token: "",
+      loggedIn: false,
+    },
+  });
+};
+
+export const listItem = (event) => async (dispatch, getState) => {
+  event.preventDefault();
+  let state = getState();
+  let itemToSend = {
+    name: state.newReducer.name,
+    description: state.newReducer.description,
+    price: state.newReducer.price,
+    photoUrl: state.newReducer.url,
+  }
+  let item = await sendItemToDb(itemToSend);  
+  if(item.status === 200){
+    console.log("Item set");
+    
+  } else {
+    dispatch({
+      type: 'ITEM_SUBMIT_ERROR',
+      payload: {
+        errText: item.status
       }
     })
   }
-  
-};
+}

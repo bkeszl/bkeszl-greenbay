@@ -1,15 +1,18 @@
 import React from "react";
 import {connect} from 'react-redux';
 import { Link } from "react-router-dom";
+import {logUserOut} from '../redux/actions/actions'
 
-function Nav({username, isLoggedIn}) {
+function Nav({username, isLoggedIn, logout}) {
   return (
     <nav className="nav-bar">
-     {isLoggedIn ? <Link to="/">Shop</Link> : <></>}
-      <Link to="/login">Login</Link>
-      <Link to="/register">Register</Link>
+     {isLoggedIn ? <><Link to="/">Shop</Link><Link to="/new">List new item</Link></> : <></>}
+     {isLoggedIn ?<></> : <><Link to="/login">Login</Link>
+      <Link to="/register">Register</Link></>} 
       <Link to="/stuffs">Nothing here</Link>
-    <div className="nav-greeter">Hello, {username}</div>
+    <div className="nav-greeter">Hello, {username}
+    {isLoggedIn ? <button onClick={logout}>Logout</button>: <></>}
+    </div>
     </nav>
   );
 }
@@ -21,7 +24,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  
+  logout: logUserOut
 }
 
 export default connect(

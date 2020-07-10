@@ -31,6 +31,8 @@ body{
   overflow: hidden;
   height: 1.3em;
   font-weight: 600;
+  text-decoration: none;
+  color: inherit;
 }
 
 .item-desc {

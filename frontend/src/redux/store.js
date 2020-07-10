@@ -5,6 +5,7 @@ import authReducer from "./reducers/authReducer";
 import homeReducer from "./reducers/homeReducer";
 import navReducer from "./reducers/navReducer";
 import registerReducer from "./reducers/registerReducer";
+import newReducer from './reducers/newReducer'
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const rootReducer = combineReducers({
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   authReducer,
   homeReducer,
   navReducer,
-  registerReducer
+  registerReducer,
+  newReducer
 });
 const composedEnhancers = compose(
   applyMiddleware(thunk),

@@ -14,4 +14,17 @@ async function fetchItems() {
   });
 }
 
+export function sendItemToDb(item) {  
+  return axios({
+    method: 'POST',
+    url: process.env.REACT_APP_BACKEND_URL + '/item/new',
+    headers: {authorization: localStorage.getItem('greenbaytoken')},
+    data: item
+  }).then((response) => {
+    return response
+  }).catch(err => {
+    return err.response.data;
+  });
+}
+
 export default fetchItems;

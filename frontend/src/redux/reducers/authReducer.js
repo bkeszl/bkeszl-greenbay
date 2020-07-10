@@ -6,7 +6,7 @@ let usernameFromToken;
 try {
   usernameFromToken = jwt.decode(token).user.username;
 } catch (err) {
-  console.log(err);
+  usernameFromToken = undefined;
 }
 const initialState = {
   username: usernameFromToken || 'Guest',

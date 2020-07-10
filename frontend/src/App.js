@@ -4,6 +4,7 @@ import Nav from './components/Nav'
 import Home from './components/Home'
 import Register from './components/Register'
 import Login from './components/Login'
+import NewItem from './components/NewItem'
 import ErrorPage from './components/ErrorPage'
 import history from "./history";
 
@@ -21,6 +22,9 @@ function App() {
           </Route>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route path="/new">
+            <NewItem />
           </Route>
           <Route path="*">
             <ErrorPage/>
