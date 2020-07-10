@@ -5,14 +5,13 @@ dotenv.config();
 async function fetchItems() {
   return axios({
     method: 'GET',
-    url: process.env.REACT_APP_BACKEND_URL + '/item/all',
+    url: process.env.REACT_APP_BACKEND_URL + '/item/notsold',
     headers: {authorization: localStorage.getItem('greenbaytoken')}
   }).then((response) => {
     return response
   }).catch(err => {
     return err.response.data;
-  });  
-  
+  });
 }
 
 export default fetchItems;

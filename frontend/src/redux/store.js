@@ -3,12 +3,16 @@ import thunk from "redux-thunk";
 import loginReducer from "./reducers/loginReducer";
 import authReducer from "./reducers/authReducer";
 import homeReducer from "./reducers/homeReducer";
+import navReducer from "./reducers/navReducer";
+import registerReducer from "./reducers/registerReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const rootReducer = combineReducers({
   loginReducer: loginReducer,
   authReducer,
-  homeReducer
+  homeReducer,
+  navReducer,
+  registerReducer
 });
 const composedEnhancers = compose(
   applyMiddleware(thunk),

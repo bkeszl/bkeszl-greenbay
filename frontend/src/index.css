@@ -1,24 +1,27 @@
 body{
   font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .img-thumbnail {
-  clip: rect(0px,25px,50px,25px);
+  max-width: 8em;
+  margin-right: 3px;;
 }
 
 .store-container {
-  display: flex;
   padding: 5px;
   background-color: #fffeee;
-  border: 1px solid grey;
-  width: 33em;
-  height: auto;
+  border: 1px solid rgb(231, 231, 231);
+  display: flex;
+  max-width: 33em;
+  flex-wrap: wrap;
 }
 
 .item-container {
   display: flex;
-  width: 16em;
   height: 9em;
+  width: 16em;
   align-items: top;
 }
 
@@ -36,5 +39,24 @@ body{
 
 .item-price {
   font-style: italic;
-  margin-bottom: 0.5em;
+}
+
+.nav-bar {
+  display: flex;
+  background-color:lightgray;
+  align-items: center;
+  min-height: auto;
+}
+
+.nav-bar a {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+.nav-bar a:hover {
+  color: aliceblue;
+}
+
+.nav-bar div:last-child {
+  margin-left: auto;
 }

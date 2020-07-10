@@ -1,25 +1,30 @@
 import React from "react";
+import {connect} from 'react-redux';
 import { Link } from "react-router-dom";
 
-function nav() {
+function Nav({username, isLoggedIn}) {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Shop</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <Link to="/register">Register</Link>
-        </li>
-        <li>
-          <Link to="/stuffs">MIsc link</Link>
-        </li>
-      </ul>
+    <nav className="nav-bar">
+     {isLoggedIn ? <Link to="/">Shop</Link> : <></>}
+      <Link to="/login">Login</Link>
+      <Link to="/register">Register</Link>
+      <Link to="/stuffs">Nothing here</Link>
+    <div className="nav-greeter">Hello, {username}</div>
     </nav>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    username: state.authReducer.username,
+    isLoggedIn: state.authReducer.loggedIn
+  }
+}
 
-export default nav;
+const mapDispatchToProps = {
+  
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Nav);

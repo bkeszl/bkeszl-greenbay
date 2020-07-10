@@ -1,11 +1,13 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config()
 
-async function login(userName, passWord) {
+ async function register (userName, passWord) {
+  console.log(passWord);
+  
   return axios({
     method: 'POST',
-    url: process.env.REACT_APP_BACKEND_URL + '/user/login',
+    url: process.env.REACT_APP_BACKEND_URL + '/user/signup',
     data: {
       username: userName,
       password: passWord
@@ -17,8 +19,7 @@ async function login(userName, passWord) {
       return err;
     }
     return err.response.data;
-  });  
-  
+  }); 
 }
 
-export default login;
+export default register;

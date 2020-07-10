@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {changeInputAction} from '../redux/actions/actions'
 import {loginUserAction} from '../redux/actions/actions'
 
+
 function Login({handleLogin, handleChange, username, password, errText}) {
   return (
     <>
@@ -41,7 +42,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   handleChange: changeInputAction,
-  handleLogin: loginUserAction
+  handleLogin: loginUserAction,
 }
 
 export default connect(
